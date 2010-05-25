@@ -49,6 +49,10 @@ Notification.prototype.alert = function(message, title, buttonLabel) {
 	try {
 		//var controller = Mojo.Controller.getAppController().getActiveStageController().
 		//debug.log(Object.toJSON(Mojo.Controller.getAppController()));
+	if (typeof title == 'undefined')
+		title = Mojo.appInfo.title;
+	if (typeof buttonLabel == 'undefined');
+		buttonLabel = "OK";
 	PhoneGap.sceneController.showAlertDialog({
 	    onChoose: function() {},
 	    title: $L(title),
@@ -60,4 +64,7 @@ Notification.prototype.alert = function(message, title, buttonLabel) {
 	} catch (ex) { debug.log(ex.name + ": " + ex.message); }
 };
 
-if (typeof navigator.notification == 'undefined') navigator.notification = new Notification();
+if (typeof navigator.notification == 'undefined') { 
+	navigator.notification = new Notification(); 
+	alert = navigator.notification.alert;
+}
