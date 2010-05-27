@@ -17,7 +17,7 @@ ECHO = echo
 ECHO_N = echo -n
 JAVA = java
 
-all :: js copy_js package deploy
+all :: js copy_js package deploy run
 
 custom :: js copy_js package deploy
 
@@ -32,6 +32,9 @@ package:
 
 deploy:
 	palm-install com.palm.phonegap_1.0.0_all.ipk
+	
+run:
+	palm-launch com.palm.phonegap
 	
 copy_js:
 	cp lib/phonegap.js framework/www/phonegap.js
