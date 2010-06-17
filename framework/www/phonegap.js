@@ -531,7 +531,7 @@ Geolocation.prototype.getCurrentPosition = function(successCallback, errorCallba
         delay += interval;
 		
 		//if we have a new position, call success and cancel the timer
-        if (typeof(dis.lastPosition) == 'object' && dis.lastPosition.timestamp > referenceTime) {
+        if (dis.lastPosition && typeof(dis.lastPosition) == 'object' && dis.lastPosition.timestamp > referenceTime) {
             successCallback(dis.lastPosition);
             clearInterval(timer);
         } else if (delay >= timeout) { //else if timeout has occured then call error and cancel the timer
@@ -658,7 +658,15 @@ Network.prototype.isReachable = function(hostName, successCallback, options) {
 	this.request = new Mojo.Service.Request('palm://com.palm.connectionmanager', {
 	    method: 'getstatus',
 	    parameters: {},
-	    onSuccess: function(result) { successCallback(result.isInternetConnectionAvailable); },
+	    onSuccess: function(result) { 
+			var status = NetworkStatus.NOT_REACHABLE;
+			if (result.isInternetConnectionAvailable == true)
+			{
+				// don't know whether its via wifi or carrier ... so return the worst case
+				status = NetworkStatus.REACHABLE_VIA_CARRIER_DATA_NETWORK;
+			}
+			successCallback(status); 
+		},
 	    onFailure: function() {}
 	});
 

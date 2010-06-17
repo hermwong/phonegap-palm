@@ -9,7 +9,15 @@ Network.prototype.isReachable = function(hostName, successCallback, options) {
 	this.request = new Mojo.Service.Request('palm://com.palm.connectionmanager', {
 	    method: 'getstatus',
 	    parameters: {},
-	    onSuccess: function(result) { successCallback(result.isInternetConnectionAvailable); },
+	    onSuccess: function(result) { 
+			var status = NetworkStatus.NOT_REACHABLE;
+			if (result.isInternetConnectionAvailable == true)
+			{
+				// don't know whether its via wifi or carrier ... so return the worst case
+				status = NetworkStatus.REACHABLE_VIA_CARRIER_DATA_NETWORK;
+			}
+			successCallback(status); 
+		},
 	    onFailure: function() {}
 	});
 
