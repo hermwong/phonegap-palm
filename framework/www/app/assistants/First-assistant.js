@@ -18,6 +18,9 @@ FirstAssistant.prototype.setup = function() {
 	//make the scene controller available to phonegap
 	PhoneGap.sceneController = this.controller;
 	
+	// Fix the <select> tags which don't work in WebOS!!!!!!!!!!
+	this.fixSelects();
+	
 	// Once this is run, we know that Mojo has been loaded, so we can fire the deviceready event
 	var evt = document.createEvent("Events");
 	evt.initEvent("deviceready", true, true);
@@ -38,4 +41,41 @@ FirstAssistant.prototype.deactivate = function(event) {
 FirstAssistant.prototype.cleanup = function(event) {
 	/* this function should do any cleanup needed before the scene is destroyed as 
 	   a result of being popped off the scene stack */
+}
+
+FirstAssistant.prototype.fixSelects = function() {
+	
+	var selects = document.querySelectorAll("select");
+	
+	if (selects){
+		for (var i=0; i<selects.length; i++)
+		{
+			var el = selects[i];
+			el.addEventListener('click', function(evt){
+				var targ = evt.target
+				var items = [];
+				var opts = targ.childNodes;
+				for (var i=0; i < opts.length; i++)
+				{
+					items.push({ label: opts[i].innerHTML, command: opts[i].value})
+				}
+
+				PhoneGap.sceneController.popupSubmenu({
+				      onChoose: function(command) { 
+							debug.log("command: " + command);
+							if (command && command != targ.value)
+							{
+								targ.value = command;
+								if (typeof targ.onchange == 'function')
+								{
+									targ.onchange.call();
+								}
+							}
+						},
+				      placeNear: targ,
+				      items: items
+				});
+			});
+		}
+	}
 }
