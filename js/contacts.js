@@ -1,11 +1,11 @@
-/**
+/*
  * This class provides access to the device contacts.
  * @constructor
  */
 
 function Contacts() {
 	
-}
+};
 
 function Contact() {
     this.phones = [];
@@ -16,20 +16,20 @@ function Contact() {
 		formatted: ""
 	};
 	this.id = "";
-}
+};
 
 Contact.prototype.displayName = function()
 {
     // TODO: can be tuned according to prefs
 	return this.givenName + " " + this.familyName;
-}
+};
 
 function ContactsFilter(name) {
 	if (name)
 		this.name = name;
 	else
 		this.name = "";
-}
+};
 
 /*
  * @param {ContactsFilter} filter Object with filter properties. filter.name only for now.
@@ -40,9 +40,9 @@ function ContactsFilter(name) {
 
 Contacts.prototype.find = function(filter, successCallback, errorCallback, options) {
 	errorCallback({ name: "ContactsError", message: "PhoneGap Palm contacts not implemented" });
-}
+};
 
 Contacts.prototype.success_callback = function(contacts_iterator) {
-}
+};
 
 if (typeof navigator.contacts == "undefined") navigator.contacts = new Contacts();

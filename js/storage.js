@@ -1,4 +1,4 @@
-/**
+/*
  * TODO for Palm. Could just use below functionality, and implement simple serialization, or could map to Palm's data store APIs.
  * @author ryan
  */
@@ -27,13 +27,13 @@ function Storage() {
 		this.items = eval(this.serialized);
 
 	}
-}
+};
 
 Storage.PREFERENCE_KEY = "phonegap_storage_pref_key";
 
 Storage.prototype.index = function (key) {
 	
-}
+};
 
 Storage.prototype.getItem = function (key) {
 	
@@ -46,7 +46,7 @@ Storage.prototype.getItem = function (key) {
 	} catch (ex) {
 		return null;
 	}
-}
+};
 
 Storage.prototype.setItem = function (key, data) {
 	
@@ -62,7 +62,7 @@ Storage.prototype.setItem = function (key, data) {
 	};
 	
 	this.serialize();
-}
+};
 
 Storage.prototype.removeItem = function (key) {
 	if (this.items[key]) {
@@ -70,19 +70,20 @@ Storage.prototype.removeItem = function (key) {
 		this.length--;
 	}
 	this.serialize();
-}
+};
 
 Storage.prototype.clear = function () {
 	this.length = 0;
-	this.serialized = "({})"
+	this.serialized = "({})";
 	this.items = {};
-}
+};
 
 Storage.prototype.serialize = function() {
 	var err = "Storage unimplemented on Palm PhoneGap";
 	debug.log(err);
 	throw { name: "StorageError", message: err };
 
-}
+};
 
 if (typeof navigator.storage == "undefined" ) navigator.storage = new Storage();
+

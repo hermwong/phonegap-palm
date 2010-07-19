@@ -1,16 +1,16 @@
-/**
+/*
  * This class provides access to the device orientation.
  * @constructor
  */
 function Orientation() {
-	/**
+	/*
 	 * The current orientation, or null if the orientation hasn't changed yet.
 	 */
 	this.currentOrientation = null;
 	this.started = false;
-}
+};
 
-/**
+/*
  * Set the current orientation of the phone.  This is called from the device automatically.
  * 
  * When the orientation is changed, the DOMEvent \c orientationChanged is dispatched against
@@ -29,7 +29,7 @@ Orientation.prototype.setOrientation = function(orientation) {
 	}
 };
 
-/**
+/*
  * Asynchronously aquires the current orientation.
  * @param {Function} successCallback The function to call when the orientation
  * is known.
@@ -77,9 +77,9 @@ Orientation.prototype.start = function (successCallback) {
 		that.setOrientation(orient);
 	});
 	this.started = true;
-}
+};
 
-/**
+/*
  * Asynchronously aquires the orientation repeatedly at a given interval.
  * @param {Function} successCallback The function to call each time the orientation
  * data is available.
@@ -99,7 +99,7 @@ Orientation.prototype.watchOrientation = function(successCallback, errorCallback
 	}, interval);
 };
 
-/**
+/*
  * Clears the specified orientation watch.
  * @param {String} watchId The ID of the watch returned from #watchOrientation.
  */
@@ -107,14 +107,14 @@ Orientation.prototype.clearWatch = function(watchId) {
 	clearInterval(watchId);
 };
 
-/**
+/*
  * This class encapsulates the possible orientation values.
  * @constructor
  */
 function DisplayOrientation() {
 	this.code = null;
 	this.message = "";
-}
+};
 
 DisplayOrientation.PORTRAIT = 0;
 DisplayOrientation.REVERSE_PORTRAIT = 1;
@@ -124,3 +124,4 @@ DisplayOrientation.FACE_UP = 4;
 DisplayOrientation.FACE_DOWN = 5;
 
 if (typeof navigator.orientation == "undefined") navigator.orientation = new Orientation();
+

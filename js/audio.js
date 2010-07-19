@@ -1,4 +1,4 @@
-/**
+/*
  * This class provides access to the device audio
  * @constructor
  */
@@ -9,10 +9,10 @@ PhoneGap.overrideAudio = function() {
 	
 	Audio = function(src) {
 		this.src = src;							
-	}
+	};
 
 	Audio.prototype.play = function() {
-		//this.src = src;
+		// this.src = src;
 		// The 'end' event listener doesn't seem to work, so we have to call stop before playing
 		// otherwise, we'll never be able to play again
 		if (this.paused && !this.stopped) {
@@ -70,16 +70,16 @@ PhoneGap.overrideAudio = function() {
 		this.audioPlayer.src = null;
 		this.paused = false;
 		this.stopped = true;
-	}
+	};
 
-	/**
+	/*
 	 * This class contains information about any Media errors.
 	 * @constructor
 	 */
 	MediaError = function() {
 		this.code = null,
 		this.message = "";
-	}
+	};
 
 	MediaError.MEDIA_ERR_ABORTED 		= 1;
 	MediaError.MEDIA_ERR_NETWORK 		= 2;
@@ -89,3 +89,4 @@ PhoneGap.overrideAudio = function() {
 }
 
 document.addEventListener("deviceready", PhoneGap.overrideAudio, false);
+

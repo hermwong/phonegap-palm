@@ -1,8 +1,8 @@
-/**
+/*
  * This class provides access to notifications on the device.
  */
 function Notification() {
-}
+};
 /*
  * This function vibrates the device
  * @param {number} duration The duration in ms to vibrate for.
@@ -22,9 +22,9 @@ Notification.prototype.vibrate = function (duration, intensity) {
 		parameters: { 
 			'period': intensity,
 			'duration': duration
-		},
+		}
 	}, false);
-}
+};
 
 Notification.prototype.beep = function () {
 	this.beephandle = new Mojo.Service.Request('palm://com.palm.audio/systemsounds', {
@@ -37,9 +37,9 @@ Notification.prototype.beep = function () {
     	onSuccess: function (response) { },
     	onFailure: function (response) { Mojo.Log.error("failure: " + Object.toJSON(response)); }
 	}, true);
-}
+};
 
-/**
+/*
  * Open a native alert dialog, with a customizable title and button text.
  * @param {String} message Message to print in the body of the alert
  * @param {String} [title="Alert"] Title of the alert dialog (default: Alert)
@@ -51,7 +51,7 @@ Notification.prototype.alert = function(message, title, buttonLabel) {
 		//debug.log(Object.toJSON(Mojo.Controller.getAppController()));
 	if (typeof title == 'undefined')
 		title = Mojo.appInfo.title;
-	if (typeof buttonLabel == 'undefined');
+	if (typeof buttonLabel == 'undefined')
 		buttonLabel = "OK";
 	PhoneGap.sceneController.showAlertDialog({
 	    onChoose: function() {},
@@ -68,3 +68,4 @@ if (typeof navigator.notification == 'undefined') {
 	navigator.notification = new Notification(); 
 	alert = navigator.notification.alert;
 }
+

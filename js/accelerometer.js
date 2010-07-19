@@ -1,15 +1,15 @@
-/**
+/*
  * This class provides access to device accelerometer data.
  * @constructor
  */
 function Accelerometer() {
-	/**
+	/*
 	 * The last known acceleration.
 	 */
 	this.lastAcceleration = null;
-}
+};
 
-/**
+/*
  * Asynchronously aquires the current acceleration.
  * @param {Function} successCallback The function to call when the acceleration
  * data is available
@@ -52,10 +52,10 @@ Accelerometer.prototype.getCurrentAcceleration = function(successCallback, error
         }
 		//else the interval gets called again
     }, interval);
-}
+};
 
 
-/**
+/*
  * Asynchronously aquires the acceleration repeatedly at a given interval.
  * @param {Function} successCallback The function to call each time the acceleration
  * data is available
@@ -73,17 +73,17 @@ Accelerometer.prototype.watchAcceleration = function(successCallback, errorCallb
 	return setInterval(function() {
 		that.getCurrentAcceleration(successCallback, errorCallback, options);
 	}, frequency);
-}
+};
 
-/**
+/*
  * Clears the specified accelerometer watch.
  * @param {String} watchId The ID of the watch returned from #watchAcceleration.
  */
 Accelerometer.prototype.clearWatch = function(watchId) {
 	clearInterval(watchId);
-}
+};
 
-/**
+/*
  * Starts the native acceleration listener.
  */
 
@@ -93,6 +93,7 @@ Accelerometer.prototype.start = function() {
 		var accel = new Acceleration(event.accelX, event.accelY, event.accelZ);
 		that.lastAcceleration = accel;
 	});
-}
+};
 
 if (typeof navigator.accelerometer == "undefined") navigator.accelerometer = new Accelerometer();
+

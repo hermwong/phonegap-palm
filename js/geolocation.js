@@ -1,5 +1,5 @@
 
-/**
+/*
  * This class provides access to device GPS data.
  * @constructor
  */
@@ -15,7 +15,7 @@ function Geolocation() {
     };
 };
 
-/**
+/*
  * Asynchronously aquires the current position.
  * @param {Function} successCallback The function to call when the position
  * data is available
@@ -58,7 +58,7 @@ Geolocation.prototype.getCurrentPosition = function(successCallback, errorCallba
     }, interval);
 };
 
-/**
+/*
  * Asynchronously aquires the position repeatedly at a given interval.
  * @param {Function} successCallback The function to call each time the position
  * data is available
@@ -83,7 +83,7 @@ Geolocation.prototype.watchPosition = function(successCallback, errorCallback, o
 };
 
 
-/**
+/*
  * Clears the specified position watch.
  * @param {String} watchId The ID of the watch returned from #watchPosition.
  */
@@ -107,15 +107,15 @@ Geolocation.prototype.start = function(options) {
 			that.lastPosition = { 
 				coords: { latitude: event.latitude, longitude: event.longitude, altitude: event.altitude, speed: event.velocity, heading: event.heading, accuracy: event.horizAccuracy }, 
 				timestamp: new Date().getTime() 
-			}
+			};
 		},
         onFailure: function() {}
     });
-}
+};
 
 Geolocation.prototype.stop = function() {
 	this.trackingHandle.cancel();
-}
-
+};
 
 if (typeof navigator.geolocation == "undefined") navigator.geolocation = new Geolocation();
+

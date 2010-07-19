@@ -1,12 +1,12 @@
-/**
+/*
  * This class provides access to the device camera.
  * @constructor
  */
 function Camera() {
 	
-}
+};
 
-/**
+/*
  * 
  * @param {Function} successCallback
  * @param {Function} errorCallback
@@ -25,7 +25,8 @@ Camera.prototype.getPicture = function(successCallback, errorCallback, options) 
 			// TODO: not receiving the proper event object as per forum article
 			//successCallback(event.filename);
 		}
-	}
+	};
+	
 	Mojo.Event.listen(PhoneGap.sceneController.sceneElement, Mojo.Event.activate, this.callback);
 	
 	PhoneGap.sceneController.stageController.pushScene(
@@ -37,6 +38,7 @@ Camera.prototype.getPicture = function(successCallback, errorCallback, options) 
 			//filename: "/media/internal/pg_" + (new Date()).getTime() + ".jpg"
 		}
 	);
-}
+};
 
 if (typeof navigator.camera == 'undefined') navigator.camera = new Camera();
+
