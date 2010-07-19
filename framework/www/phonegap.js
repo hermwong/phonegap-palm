@@ -7,6 +7,7 @@
  * With the attempt below, mojo.js won't be run until after phonegap.js, so it doesn't work. But I'll leave
  * it just for future reference as to what we need to do.
  */
+
 /*
 if (typeof Mojo == 'undefined') {
 
@@ -27,7 +28,7 @@ if (typeof Mojo == 'undefined') {
 if (typeof(DeviceInfo) != 'object')
     DeviceInfo = {};
 
-/**
+/*
  * This represents the PhoneGap API itself, and provides a global namespace for accessing
  * information about the state of PhoneGap.
  * @class
@@ -37,7 +38,7 @@ PhoneGap = {
 	available: true,
 	sceneController: null
 };
-/**
+/*
  * This class contains acceleration information
  * @constructor
  * @param {Number} x The force applied by the device in the x-axis.
@@ -45,47 +46,48 @@ PhoneGap = {
  * @param {Number} z The force applied by the device in the z-axis.
  */
 function Acceleration(x, y, z) {
-	/**
+	/*
 	 * The force applied by the device in the x-axis.
 	 */
 	this.x = x;
-	/**
+	/*
 	 * The force applied by the device in the y-axis.
 	 */
 	this.y = y;
-	/**
+	/*
 	 * The force applied by the device in the z-axis.
 	 */
 	this.z = z;
-	/**
+	/*
 	 * The time that the acceleration was obtained.
 	 */
 	this.timestamp = new Date().getTime();
-}
+};
 
-/**
+/*
  * This class specifies the options for requesting acceleration data.
  * @constructor
  */
 function AccelerationOptions() {
-	/**
+	/*
 	 * The timeout after which if acceleration data cannot be obtained the errorCallback
 	 * is called.
 	 */
 	this.timeout = 10000;
-}
-/**
+};
+
+/*
  * This class provides access to device accelerometer data.
  * @constructor
  */
 function Accelerometer() {
-	/**
+	/*
 	 * The last known acceleration.
 	 */
 	this.lastAcceleration = null;
-}
+};
 
-/**
+/*
  * Asynchronously aquires the current acceleration.
  * @param {Function} successCallback The function to call when the acceleration
  * data is available
@@ -128,10 +130,10 @@ Accelerometer.prototype.getCurrentAcceleration = function(successCallback, error
         }
 		//else the interval gets called again
     }, interval);
-}
+};
 
 
-/**
+/*
  * Asynchronously aquires the acceleration repeatedly at a given interval.
  * @param {Function} successCallback The function to call each time the acceleration
  * data is available
@@ -149,17 +151,17 @@ Accelerometer.prototype.watchAcceleration = function(successCallback, errorCallb
 	return setInterval(function() {
 		that.getCurrentAcceleration(successCallback, errorCallback, options);
 	}, frequency);
-}
+};
 
-/**
+/*
  * Clears the specified accelerometer watch.
  * @param {String} watchId The ID of the watch returned from #watchAcceleration.
  */
 Accelerometer.prototype.clearWatch = function(watchId) {
 	clearInterval(watchId);
-}
+};
 
-/**
+/*
  * Starts the native acceleration listener.
  */
 
@@ -169,9 +171,11 @@ Accelerometer.prototype.start = function() {
 		var accel = new Acceleration(event.accelX, event.accelY, event.accelZ);
 		that.lastAcceleration = accel;
 	});
-}
+};
 
-if (typeof navigator.accelerometer == "undefined") navigator.accelerometer = new Accelerometer();/**
+if (typeof navigator.accelerometer == "undefined") navigator.accelerometer = new Accelerometer();
+
+/*
  * This class provides access to the device audio
  * @constructor
  */
@@ -182,10 +186,10 @@ PhoneGap.overrideAudio = function() {
 	
 	Audio = function(src) {
 		this.src = src;							
-	}
+	};
 
 	Audio.prototype.play = function() {
-		//this.src = src;
+		// this.src = src;
 		// The 'end' event listener doesn't seem to work, so we have to call stop before playing
 		// otherwise, we'll never be able to play again
 		if (this.paused && !this.stopped) {
@@ -243,16 +247,16 @@ PhoneGap.overrideAudio = function() {
 		this.audioPlayer.src = null;
 		this.paused = false;
 		this.stopped = true;
-	}
+	};
 
-	/**
+	/*
 	 * This class contains information about any Media errors.
 	 * @constructor
 	 */
 	MediaError = function() {
 		this.code = null,
 		this.message = "";
-	}
+	};
 
 	MediaError.MEDIA_ERR_ABORTED 		= 1;
 	MediaError.MEDIA_ERR_NETWORK 		= 2;
@@ -261,15 +265,17 @@ PhoneGap.overrideAudio = function() {
 
 }
 
-document.addEventListener("deviceready", PhoneGap.overrideAudio, false);/**
+document.addEventListener("deviceready", PhoneGap.overrideAudio, false);
+
+/*
  * This class provides access to the device camera.
  * @constructor
  */
 function Camera() {
 	
-}
+};
 
-/**
+/*
  * 
  * @param {Function} successCallback
  * @param {Function} errorCallback
@@ -288,7 +294,8 @@ Camera.prototype.getPicture = function(successCallback, errorCallback, options) 
 			// TODO: not receiving the proper event object as per forum article
 			//successCallback(event.filename);
 		}
-	}
+	};
+	
 	Mojo.Event.listen(PhoneGap.sceneController.sceneElement, Mojo.Event.activate, this.callback);
 	
 	PhoneGap.sceneController.stageController.pushScene(
@@ -300,16 +307,18 @@ Camera.prototype.getPicture = function(successCallback, errorCallback, options) 
 			//filename: "/media/internal/pg_" + (new Date()).getTime() + ".jpg"
 		}
 	);
-}
+};
 
-if (typeof navigator.camera == 'undefined') navigator.camera = new Camera();/**
+if (typeof navigator.camera == 'undefined') navigator.camera = new Camera();
+
+/*
  * This class provides access to the device contacts.
  * @constructor
  */
 
 function Contacts() {
 	
-}
+};
 
 function Contact() {
     this.phones = [];
@@ -320,20 +329,20 @@ function Contact() {
 		formatted: ""
 	};
 	this.id = "";
-}
+};
 
 Contact.prototype.displayName = function()
 {
     // TODO: can be tuned according to prefs
 	return this.givenName + " " + this.familyName;
-}
+};
 
 function ContactsFilter(name) {
 	if (name)
 		this.name = name;
 	else
 		this.name = "";
-}
+};
 
 /*
  * @param {ContactsFilter} filter Object with filter properties. filter.name only for now.
@@ -344,20 +353,20 @@ function ContactsFilter(name) {
 
 Contacts.prototype.find = function(filter, successCallback, errorCallback, options) {
 	errorCallback({ name: "ContactsError", message: "PhoneGap Palm contacts not implemented" });
-}
+};
 
 Contacts.prototype.success_callback = function(contacts_iterator) {
-}
+};
 
 if (typeof navigator.contacts == "undefined") navigator.contacts = new Contacts();
-/**
+/*
  * This class provides access to the debugging console.
  * @constructor
  */
 function DebugConsole() {
-}
+};
 
-/**
+/*
  * Print a normal log message to the console
  * @param {Object|String} message Message or object to print to the console
  */
@@ -372,7 +381,7 @@ DebugConsole.prototype.log = function(message) {
 	*/
 };
 
-/**
+/*
  * Print a warning message to the console
  * @param {Object|String} message Message or object to print to the console
  */
@@ -399,7 +408,7 @@ DebugConsole.prototype.error = function(message) {
 };
 
 if (typeof window.debug == "undefined") window.debug = new DebugConsole();
-/**
+/*
  * this represents the mobile device, and provides properties for inspecting the model, version, UUID of the
  * phone, etc.
  * @constructor
@@ -412,7 +421,7 @@ function Device() {
 
 	if (typeof Mojo != 'undefined')
 		this.setUUID();
-}
+};
 
 Device.prototype.setUUID = function() {
 	//this is the only system property webos provides (may change?)
@@ -424,9 +433,11 @@ Device.prototype.setUUID = function() {
 			that.uuid = result["com.palm.properties.nduid"];
 		}
     });	
-}
+};
 
-if (typeof window.device == 'undefined') window.device = navigator.device = new Device();/**
+if (typeof window.device == 'undefined') window.device = navigator.device = new Device();
+
+/*
  * This class provides generic read and write access to the mobile device file system.
  */
 function File() {
@@ -438,9 +449,9 @@ function File() {
 	 * The name of the file.
 	 */
 	this.name = "";
-}
+};
 
-/**
+/*
  * Reads a file from the mobile device. This function is asyncronous.
  * @param {String} fileName The name (including the path) to the file on the mobile device. 
  * The file name will likely be device dependant.
@@ -468,22 +479,23 @@ File.prototype.read = function(fileName, successCallback, errorCallback) {
 				errorCallback({ name: xhr.status, message: "could not read file: " + path });
 			}
 		}
-	}
+	};
 	xhr.open("GET", path, true);
 	xhr.send();
-}
+};
 
-/**
+/*
  * Writes a file to the mobile device. 
  * @param {File} file The file to write to the device.
  */
 File.prototype.write = function(file) {
 	//Palm does not provide file i/o
-}
+};
 
 if (typeof navigator.file == "undefined") navigator.file = new File();
 
-/**
+
+/*
  * This class provides access to device GPS data.
  * @constructor
  */
@@ -499,7 +511,7 @@ function Geolocation() {
     };
 };
 
-/**
+/*
  * Asynchronously aquires the current position.
  * @param {Function} successCallback The function to call when the position
  * data is available
@@ -542,7 +554,7 @@ Geolocation.prototype.getCurrentPosition = function(successCallback, errorCallba
     }, interval);
 };
 
-/**
+/*
  * Asynchronously aquires the position repeatedly at a given interval.
  * @param {Function} successCallback The function to call each time the position
  * data is available
@@ -567,7 +579,7 @@ Geolocation.prototype.watchPosition = function(successCallback, errorCallback, o
 };
 
 
-/**
+/*
  * Clears the specified position watch.
  * @param {String} watchId The ID of the watch returned from #watchPosition.
  */
@@ -591,25 +603,26 @@ Geolocation.prototype.start = function(options) {
 			that.lastPosition = { 
 				coords: { latitude: event.latitude, longitude: event.longitude, altitude: event.altitude, speed: event.velocity, heading: event.heading, accuracy: event.horizAccuracy }, 
 				timestamp: new Date().getTime() 
-			}
+			};
 		},
         onFailure: function() {}
     });
-}
+};
 
 Geolocation.prototype.stop = function() {
 	this.trackingHandle.cancel();
-}
+};
 
+if (typeof navigator.geolocation == "undefined") navigator.geolocation = new Geolocation();
 
-if (typeof navigator.geolocation == "undefined") navigator.geolocation = new Geolocation();/**
+/*
  * This class provides access to native mapping applications on the device.
  */
 function Map() {
 	
-}
+};
 
-/**
+/*
  * Shows a native map on the device with pins at the given positions.
  * @param {Array} positions
  */
@@ -644,11 +657,12 @@ Map.prototype.show = function(positions) {
 		}
 	});
 
-}
+};
 
 if (typeof navigator.map == "undefined") navigator.map = new Map();
+
 function Network() {
-    /**
+    /*
      * The last known Network status.
      */
 	this.lastReachability = null;
@@ -672,24 +686,26 @@ Network.prototype.isReachable = function(hostName, successCallback, options) {
 
 };
 
-/**
+/*
  * This class contains information about any NetworkStatus.
  * @constructor
  */
 function NetworkStatus() {
 	this.code = null;
 	this.message = "";
-}
+};
 
 NetworkStatus.NOT_REACHABLE = 0;
 NetworkStatus.REACHABLE_VIA_CARRIER_DATA_NETWORK = 1;
 NetworkStatus.REACHABLE_VIA_WIFI_NETWORK = 2;
 
-if (typeof navigator.network == "undefined") navigator.network = new Network();/**
+if (typeof navigator.network == "undefined") navigator.network = new Network();
+
+/*
  * This class provides access to notifications on the device.
  */
 function Notification() {
-}
+};
 /*
  * This function vibrates the device
  * @param {number} duration The duration in ms to vibrate for.
@@ -709,9 +725,9 @@ Notification.prototype.vibrate = function (duration, intensity) {
 		parameters: { 
 			'period': intensity,
 			'duration': duration
-		},
+		}
 	}, false);
-}
+};
 
 Notification.prototype.beep = function () {
 	this.beephandle = new Mojo.Service.Request('palm://com.palm.audio/systemsounds', {
@@ -724,9 +740,9 @@ Notification.prototype.beep = function () {
     	onSuccess: function (response) { },
     	onFailure: function (response) { Mojo.Log.error("failure: " + Object.toJSON(response)); }
 	}, true);
-}
+};
 
-/**
+/*
  * Open a native alert dialog, with a customizable title and button text.
  * @param {String} message Message to print in the body of the alert
  * @param {String} [title="Alert"] Title of the alert dialog (default: Alert)
@@ -738,7 +754,7 @@ Notification.prototype.alert = function(message, title, buttonLabel) {
 		//debug.log(Object.toJSON(Mojo.Controller.getAppController()));
 	if (typeof title == 'undefined')
 		title = Mojo.appInfo.title;
-	if (typeof buttonLabel == 'undefined');
+	if (typeof buttonLabel == 'undefined')
 		buttonLabel = "OK";
 	PhoneGap.sceneController.showAlertDialog({
 	    onChoose: function() {},
@@ -754,19 +770,21 @@ Notification.prototype.alert = function(message, title, buttonLabel) {
 if (typeof navigator.notification == 'undefined') { 
 	navigator.notification = new Notification(); 
 	alert = navigator.notification.alert;
-}/**
+}
+
+/*
  * This class provides access to the device orientation.
  * @constructor
  */
 function Orientation() {
-	/**
+	/*
 	 * The current orientation, or null if the orientation hasn't changed yet.
 	 */
 	this.currentOrientation = null;
 	this.started = false;
-}
+};
 
-/**
+/*
  * Set the current orientation of the phone.  This is called from the device automatically.
  * 
  * When the orientation is changed, the DOMEvent \c orientationChanged is dispatched against
@@ -785,7 +803,7 @@ Orientation.prototype.setOrientation = function(orientation) {
 	}
 };
 
-/**
+/*
  * Asynchronously aquires the current orientation.
  * @param {Function} successCallback The function to call when the orientation
  * is known.
@@ -833,9 +851,9 @@ Orientation.prototype.start = function (successCallback) {
 		that.setOrientation(orient);
 	});
 	this.started = true;
-}
+};
 
-/**
+/*
  * Asynchronously aquires the orientation repeatedly at a given interval.
  * @param {Function} successCallback The function to call each time the orientation
  * data is available.
@@ -855,7 +873,7 @@ Orientation.prototype.watchOrientation = function(successCallback, errorCallback
 	}, interval);
 };
 
-/**
+/*
  * Clears the specified orientation watch.
  * @param {String} watchId The ID of the watch returned from #watchOrientation.
  */
@@ -863,14 +881,14 @@ Orientation.prototype.clearWatch = function(watchId) {
 	clearInterval(watchId);
 };
 
-/**
+/*
  * This class encapsulates the possible orientation values.
  * @constructor
  */
 function DisplayOrientation() {
 	this.code = null;
 	this.message = "";
-}
+};
 
 DisplayOrientation.PORTRAIT = 0;
 DisplayOrientation.REVERSE_PORTRAIT = 1;
@@ -880,76 +898,78 @@ DisplayOrientation.FACE_UP = 4;
 DisplayOrientation.FACE_DOWN = 5;
 
 if (typeof navigator.orientation == "undefined") navigator.orientation = new Orientation();
+
 function Position(coords) {
 	this.coords = coords;
     this.timestamp = new Date().getTime();
-}
+};
 
 function Coordinates(lat, lng, alt, acc, head, vel) {
-	/**
+	/*
 	 * The latitude of the position.
 	 */
 	this.latitude = lat;
-	/**
+	/*
 	 * The longitude of the position,
 	 */
 	this.longitude = lng;
-	/**
+	/*
 	 * The accuracy of the position.
 	 */
 	this.accuracy = acc;
-	/**
+	/*
 	 * The altitude of the position.
 	 */
 	this.altitude = alt;
-	/**
+	/*
 	 * The direction the device is moving at the position.
 	 */
 	this.heading = head;
-	/**
+	/*
 	 * The velocity with which the device is moving at the position.
 	 */
 	this.speed = vel;
-}
+};
 
-/**
+/*
  * This class specifies the options for requesting position data.
  * @constructor
  */
 function PositionOptions() {
-	/**
+	/*
 	 * Specifies the desired position accuracy.
 	 */
 	this.enableHighAccuracy = true;
-	/**
+	/*
 	 * The timeout after which if position data cannot be obtained the errorCallback
 	 * is called.
 	 */
 	this.timeout = 10000;
-}
+};
 
-/**
+/*
  * This class contains information about any GSP errors.
  * @constructor
  */
 function PositionError() {
 	this.code = null;
 	this.message = "";
-}
+};
 
 PositionError.UNKNOWN_ERROR = 0;
 PositionError.PERMISSION_DENIED = 1;
 PositionError.POSITION_UNAVAILABLE = 2;
 PositionError.TIMEOUT = 3;
-/**
+
+/*
  * This class provides access to the device SMS functionality.
  * @constructor
  */
 function Sms() {
 
-}
+};
 
-/**
+/*
  * Sends an SMS message.
  * @param {Integer} number The phone number to send the message to.
  * @param {String} message The contents of the SMS message to send.
@@ -973,10 +993,11 @@ Sms.prototype.send = function(number, message, successCallback, errorCallback, o
 	} catch (ex) {
 		errorCallback({ name: "SMSerror", message: ex.name + ": " + ex.message });
 	}
-}
+};
 
 if (typeof navigator.sms == "undefined") navigator.sms = new Sms();
-/**
+
+/*
  * TODO for Palm. Could just use below functionality, and implement simple serialization, or could map to Palm's data store APIs.
  * @author ryan
  */
@@ -1005,13 +1026,13 @@ function Storage() {
 		this.items = eval(this.serialized);
 
 	}
-}
+};
 
 Storage.PREFERENCE_KEY = "phonegap_storage_pref_key";
 
 Storage.prototype.index = function (key) {
 	
-}
+};
 
 Storage.prototype.getItem = function (key) {
 	
@@ -1024,7 +1045,7 @@ Storage.prototype.getItem = function (key) {
 	} catch (ex) {
 		return null;
 	}
-}
+};
 
 Storage.prototype.setItem = function (key, data) {
 	
@@ -1040,7 +1061,7 @@ Storage.prototype.setItem = function (key, data) {
 	};
 	
 	this.serialize();
-}
+};
 
 Storage.prototype.removeItem = function (key) {
 	if (this.items[key]) {
@@ -1048,31 +1069,32 @@ Storage.prototype.removeItem = function (key) {
 		this.length--;
 	}
 	this.serialize();
-}
+};
 
 Storage.prototype.clear = function () {
 	this.length = 0;
-	this.serialized = "({})"
+	this.serialized = "({})";
 	this.items = {};
-}
+};
 
 Storage.prototype.serialize = function() {
 	var err = "Storage unimplemented on Palm PhoneGap";
 	debug.log(err);
 	throw { name: "StorageError", message: err };
 
-}
+};
 
 if (typeof navigator.storage == "undefined" ) navigator.storage = new Storage();
-/**
+
+/*
  * This class provides access to the telephony features of the device.
  * @constructor
  */
 function Telephony() {
 	this.number = "";
-}
+};
 
-/**
+/*
  * Calls the specifed number.
  * @param {Integer} number The number to be called.
  */
@@ -1084,6 +1106,7 @@ Telephony.prototype.send = function(number) {
 	       target: "tel://" + number
 	    }
 	});
-}
+};
 
 if (typeof navigator.telephony == "undefined") navigator.telephony = new Telephony();
+

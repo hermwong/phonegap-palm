@@ -62,7 +62,6 @@ FirstAssistant.prototype.fixSelects = function() {
 
 				PhoneGap.sceneController.popupSubmenu({
 				      onChoose: function(command) { 
-							debug.log("command: " + command);
 							if (command && command != targ.value)
 							{
 								targ.value = command;
