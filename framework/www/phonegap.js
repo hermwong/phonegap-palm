@@ -587,7 +587,8 @@ Geolocation.prototype.getCurrentPosition = function(successCallback, errorCallba
 					altitude: (event.altitude >= 0 ? event.altitude : null), 
 					speed: (event.velocity >= 0 ? event.velocity : null), 
 					heading: (event.heading >= 0 ? event.heading : null), 
-					accuracy: (event.horizAccuracy >= 0 ? event.horizAccuracy : null)
+					accuracy: (event.horizAccuracy >= 0 ? event.horizAccuracy : null),
+					altitudeAccuracy: (event.vertAccuracy >= 0 ? event.vertAccuracy : null)
 				},
 				timestamp: new Date().getTime()
 			};
@@ -684,7 +685,8 @@ Geolocation.prototype.start = function(options, errorCallback) {
 					altitude: (event.altitude >= 0 ? event.altitude : null), 
 					speed: (event.velocity >= 0 ? event.velocity : null), 
 					heading: (event.heading >= 0 ? event.heading : null), 
-					accuracy: (event.horizAccuracy >= 0 ? event.horizAccuracy : null)
+					accuracy: (event.horizAccuracy >= 0 ? event.horizAccuracy : null),
+					altitudeAccuracy: (event.vertAccuracy >= 0 ? event.vertAccuracy : null)
 				}, 
 				timestamp: new Date().getTime() 
 			};
@@ -990,7 +992,7 @@ function Position(coords) {
     this.timestamp = new Date().getTime();
 };
 
-function Coordinates(lat, lng, alt, acc, head, vel) {
+function Coordinates(lat, lng, alt, acc, head, vel, altacc) {
 	/*
 	 * The latitude of the position.
 	 */
@@ -1015,6 +1017,10 @@ function Coordinates(lat, lng, alt, acc, head, vel) {
 	 * The velocity with which the device is moving at the position.
 	 */
 	this.speed = vel;
+	/*
+	 * The altitude accuracy of the position.
+	 */
+	this.altitudeAccuracy = (typeof(altacc) != 'undefined') ? altacc : null;
 };
 
 /*

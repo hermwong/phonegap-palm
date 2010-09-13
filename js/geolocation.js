@@ -91,7 +91,8 @@ Geolocation.prototype.getCurrentPosition = function(successCallback, errorCallba
 					altitude: (event.altitude >= 0 ? event.altitude : null), 
 					speed: (event.velocity >= 0 ? event.velocity : null), 
 					heading: (event.heading >= 0 ? event.heading : null), 
-					accuracy: (event.horizAccuracy >= 0 ? event.horizAccuracy : null)
+					accuracy: (event.horizAccuracy >= 0 ? event.horizAccuracy : null),
+					altitudeAccuracy: (event.vertAccuracy >= 0 ? event.vertAccuracy : null)
 				},
 				timestamp: new Date().getTime()
 			};
@@ -188,7 +189,8 @@ Geolocation.prototype.start = function(options, errorCallback) {
 					altitude: (event.altitude >= 0 ? event.altitude : null), 
 					speed: (event.velocity >= 0 ? event.velocity : null), 
 					heading: (event.heading >= 0 ? event.heading : null), 
-					accuracy: (event.horizAccuracy >= 0 ? event.horizAccuracy : null)
+					accuracy: (event.horizAccuracy >= 0 ? event.horizAccuracy : null),
+					altitudeAccuracy: (event.vertAccuracy >= 0 ? event.vertAccuracy : null)
 				}, 
 				timestamp: new Date().getTime() 
 			};
