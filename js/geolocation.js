@@ -170,7 +170,7 @@ Geolocation.prototype.start = function(options, errorCallback) {
 	var responseTime;
 	if (frequency <=5000)
 		responseTime = 1;
-	else if (5000 < options.frequency <= 20000)
+	else if (5000 < frequency <= 20000)
 		responseTime = 2;
 	else
 		responseTime = 3;
