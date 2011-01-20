@@ -45,6 +45,7 @@ Notes & Caveats
  - If using Lawnchair, the only supported adaptor is webkitsqlite.
  - DON'T FORGET MOJO.JS!!!!!
  - html select boxes are implemented by phonegap, not supported natively (believe it or not). only the most basic functionality is implemented, so be aware using this control could cause problems.
+ - To enable verbose logging, add the file framework_config.json to your framework/www/ folder, containing the following json content: { "logLevel": 99 }
 
 
 Helpful Links
