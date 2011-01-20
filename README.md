@@ -37,10 +37,14 @@ Where the app id is your app id as set in appinfo.json.
 This will tail your log file; it will default to the device if detected, otherwise it will read logs from the emulator.
 In your javascript, use debug.log in your javascript.
 
-Notes
+Notes & Caveats
 -----------------------------------------------------
  - In order to use the vibration API on palm, your application needs to have a "com.palm.*" namespace, as vibration on webOS is a private API. The caveat of doing this is that you are essentially indicating that your app should pretend to be a "Palm app" (rather than a Nitobi app, for example) ... and as a result your app will be denied from the Palm app catalog.
  - Currently the map.show function can only accept one position, as Palm uses google maps as its native maps application, and it only can take one marker as a parameter.
+ - Touch event not supported, natively. Must use the click event, or maybe we can emulate the touch event by capturing the click event.
+ - If using Lawnchair, the only supported adaptor is webkitsqlite.
+ - DON'T FORGET MOJO.JS!!!!!
+ - html select boxes are implemented by phonegap, not supported natively (believe it or not). only the most basic functionality is implemented, so be aware using this control could cause problems.
 
 
 Helpful Links
