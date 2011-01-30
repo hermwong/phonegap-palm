@@ -1,12 +1,12 @@
 
-function FirstAssistant() {
+function MainAssistant() {
 	/* this is the creator function for your scene assistant object. It will be passed all the 
 	   additional parameters (after the scene name) that were passed to pushScene. The reference
 	   to the scene controller (this.controller) has not be established yet, so any initialization
 	   that needs the scene controller should be done in the setup function below. */
 }
 
-FirstAssistant.prototype.setup = function() {
+MainAssistant.prototype.setup = function() {
 	/* this function is for setup tasks that have to happen when the scene is first created */
 		
 	/* use Mojo.View.render to render view templates and add them to the scene, if needed. */
@@ -27,23 +27,30 @@ FirstAssistant.prototype.setup = function() {
 	document.dispatchEvent(evt);
 }
 
-FirstAssistant.prototype.activate = function(event) {
+MainAssistant.prototype.handleCommand = function(event) {
+  if (event.type == Mojo.Event.back) {
+    console.log("Back Event fired");
+    MainAssistant.prototype.backSwipeHandler();
+    event.stop();
+  }
+}
+
+MainAssistant.prototype.activate = function(event) {
 	/* put in event handlers here that should only be in effect when this scene is active. For
 	   example, key handlers that are observing the document */
 }
 
-
-FirstAssistant.prototype.deactivate = function(event) {
+MainAssistant.prototype.deactivate = function(event) {
 	/* remove any event handlers you added in activate and do any other cleanup that should happen before
 	   this scene is popped or another scene is pushed on top */
 }
 
-FirstAssistant.prototype.cleanup = function(event) {
+MainAssistant.prototype.cleanup = function(event) {
 	/* this function should do any cleanup needed before the scene is destroyed as 
 	   a result of being popped off the scene stack */
 }
 
-FirstAssistant.prototype.fixSelects = function() {
+MainAssistant.prototype.fixSelects = function() {
 	
 	var selects = document.querySelectorAll("select");
 	
@@ -78,3 +85,13 @@ FirstAssistant.prototype.fixSelects = function() {
 		}
 	}
 }
+
+/**
+ * Handle Back button presses
+ */
+MainAssistant.prototype.backSwipeHandler = function() {
+  console.log("Back swipe detected.");
+  // FIXME: Scroll to top. window.scroll() doesn't seem to work.
+  App.jQT.goBack();
+}
+
