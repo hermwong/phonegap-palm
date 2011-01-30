@@ -1,7 +1,7 @@
 PhoneGap Palm
 =====================================================
 PhoneGap Palm is a skeleton Palm webOS application, along with javascript wrapper libraries, which allow a developer to build an application for a Palm webOS device using web technologies. This same code can be built for iPhone, BlackBerry, Symbian, and more to come ...
-
+Currently the jQTouch framework for building mobile web apps is included, but it can be exchanged for another framework (like jQuery Mobile) very easily.
 
 Pre-requisites
 -----------------------------------------------------
@@ -13,7 +13,7 @@ Set up your environment and install the skeleton app
 Open a terminal, and navigate to the root PhoneGap Palm folder (where this readme.md file is located). A Makefile resides here; running make here will package your application, and install it to either the emulator, or the device. Or you can run make on individual target tasks:
 
    - make js - builds phonegap.js from source javascript files to libs/phonegap.js
-   - make copy_js - copies libs/phonegap.js to framework/www/phonegap.js - modify this path if you want phonegap.js in another location
+   - make copy_js - copies libs/phonegap.js to framework/www/js/phonegap.js - modify this path if you want phonegap.js in another location
    - make package - builds the webOS app (located in framework/www/) into an webOS .ipk installer package in the phonegap_root/palm/ folder
    - make deploy - installs the .ipk package to a device if detected, otherwise the emulator if its running 
 

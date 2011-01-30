@@ -32,6 +32,7 @@ clean_libs:
 	-$(RM_RF) lib
 	
 package:
+	cp framework/www/index.html framework/www/app/views/main/main-scene.html
 	palm-package framework/www/
 
 deploy:

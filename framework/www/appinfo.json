@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"vendor": "Nitobi",
 	"type": "web",
-	"main": "index.html",
+	"main": "root.html",
 	"title": "PhoneGap Example",
 	"icon": "img/icon.png"
 }
