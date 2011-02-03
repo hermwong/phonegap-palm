@@ -38,6 +38,30 @@ MainAssistant.prototype.handleCommand = function(event) {
 MainAssistant.prototype.activate = function(event) {
 	/* put in event handlers here that should only be in effect when this scene is active. For
 	   example, key handlers that are observing the document */
+  /* FIXME: We have to handle pictures we get from the Camera App here
+   * because for some reason we get the correct event object only here */
+   
+  if (typeof event === 'undefined') {
+    console.log("MainAssistant has been activated");
+    return;
+  } else {
+    console.log("MainAssistant has been activated, event parameter present"); // that usually means we called the Camera to make a picture..
+    console.log(JSON.stringify(event));
+    
+    if (typeof navigator.camera.errorCallback != 'function'
+        || typeof navigator.camera.successCallback != 'function') {
+      console.error("You have to provide an errorCallback and a successCallback!");
+      return;
+    }
+    
+    if (event.returnValue === true) {
+      navigator.camera.successCallback(event.filename);
+    } else {
+      navigator.camera.errorCallback(event.filename);
+    }
+    
+    return;
+  }
 }
 
 MainAssistant.prototype.deactivate = function(event) {

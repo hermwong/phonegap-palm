@@ -17,5 +17,22 @@ document.addEventListener("deviceready", function() {
     //useFastTouch: false,
     //useAnimations: false,
   });
+  
+  App.init();
 }, false);
+
+
+App.init = function() {
+  $('#takePicture').click(function() {
+    navigator.camera.getPicture(App.successHandler, App.failureHandler, {quality: 50});
+  });
+};
+
+App.successHandler = function() {
+  alert("Success!");
+}
+
+App.failureHandler = function() {
+  alert("Failure..");
+}
 
