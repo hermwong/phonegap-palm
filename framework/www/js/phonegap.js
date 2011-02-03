@@ -121,7 +121,7 @@ Accelerometer.prototype.getCurrentAcceleration = function(successCallback, error
         delay += interval;
  
 		//if we have a new acceleration, call success and cancel the timer
-        if (typeof(dis.lastAcceleration) == 'object' && dis.lastAcceleration.timestamp > referenceTime) {
+        if (typeof(dis.lastAcceleration) == 'object' && dis.lastAcceleration != null && dis.lastAcceleration.timestamp > referenceTime) {
             successCallback(dis.lastAcceleration);
             clearInterval(timer);
         } else if (delay >= timeout) { //else if timeout has occured then call error and cancel the timer
@@ -282,7 +282,15 @@ function Camera() {
  * @param {Object} options
  */
 Camera.prototype.getPicture = function(successCallback, errorCallback, options) {
-	
+  params = { sublaunch: true };
+  
+  if (typeof options != 'undefined' && typeof options.filename != 'undefined') {
+    params.filename = options.filename;
+  }
+  
+  navigator.camera.errorCallback = errorCallback;
+  navigator.camera.successCallback = successCallback;
+  
 	//TODO: This callback is not being called
 	//currently calling handlePicture from First-assistant.js activate method
 	var that = this;
@@ -301,11 +309,8 @@ Camera.prototype.getPicture = function(successCallback, errorCallback, options) 
 	PhoneGap.sceneController.stageController.pushScene(
 		{ 
 			appId :'com.palm.app.camera', 
-			name: 'capture' 
-		}, { 
-			sublaunch : true
-			//filename: "/media/internal/pg_" + (new Date()).getTime() + ".jpg"
-		}
+			name: 'capture'
+		}, params
 	);
 };
 
