@@ -1,4 +1,4 @@
-GREP = /usr/bin/grep
+GREP = grep
 CUT = /usr/bin/cut
 SHELL = /bin/sh
 CHMOD = chmod
