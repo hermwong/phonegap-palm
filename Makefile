@@ -1,5 +1,5 @@
 GREP = grep
-CUT = /usr/bin/cut
+CUT = cut
 SHELL = /bin/sh
 CHMOD = chmod
 CP = cp
