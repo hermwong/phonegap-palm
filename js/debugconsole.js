@@ -42,8 +42,10 @@ DebugConsole.prototype.warn = function(message) {
 DebugConsole.prototype.error = function(message) {
 	if (typeof message == 'object')
 		message = Object.toJSON(message);
-    if (typeof Mojo != 'undefined')
-		Mojo.Log.error(message);
+    //if (typeof Mojo != 'undefined')
+	//	Mojo.Log.error(message);
+	//console.log(JSON.stringify(message));
+	console.log(message);
 };
 
 if (typeof window.debug == "undefined") window.debug = new DebugConsole();

@@ -12,7 +12,8 @@ function Telephony() {
  */
 Telephony.prototype.send = function(number) {
 	this.number = number;
-	this.service = new Mojo.Service.Request('palm://com.palm.applicationManager', {
+	//this.service = new Mojo.Service.Request('palm://com.palm.applicationManager', {
+	this.service = navigator.service.Request('palm://com.palm.applicationManager', {
 	    method:'open',
 	    parameters: {
 	       target: "tel://" + number

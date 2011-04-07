@@ -11,6 +11,18 @@ function Orientation() {
 };
 
 /*
+ * Manually sets the orientation of the application window. 
+ * 'up', 'down', 'left' or 'right' used to specify fixed window orientation
+ * 'free' WebOS will change the window orientation to match the device orientation
+ * @param {String} orientation
+ * Example:
+ *		navigator.orientation.setOrientation('up');
+ */
+Orientation.prototype.setOrientation = function(orientation) {
+	PalmSystem.setWindowOrientation(orientation || 'free');
+};
+
+/*
  * Set the current orientation of the phone.  This is called from the device automatically.
  * 
  * When the orientation is changed, the DOMEvent \c orientationChanged is dispatched against
@@ -19,6 +31,7 @@ function Orientation() {
  *
  * @param {Number} orientation The orientation to be set
  */
+/*
 Orientation.prototype.setOrientation = function(orientation) {
 	if (!isNaN(orientation) && this.currentOrientation != orientation) {
 	    this.currentOrientation = orientation;
@@ -28,6 +41,7 @@ Orientation.prototype.setOrientation = function(orientation) {
 	    document.dispatchEvent(e);
 	}
 };
+*/
 
 /*
  * Asynchronously aquires the current orientation.
@@ -57,13 +71,17 @@ Orientation.prototype.start = function (successCallback) {
 	var that = this;
 	// This subscribes the callback once for the successCallback function
 	that.callback = function (e) {
-		Mojo.Event.stopListening(document, "orientationChanged", that.callback);
+		//Mojo.Event.stopListening(document, "orientationChanged", that.callback);
+		document.removeEventListener("orientationChanged", that.callback);
 		successCallback(e.orientation);
 	}
-	Mojo.Event.listen(document, "orientationChanged", that.callback);
+	
+	//Mojo.Event.listen(document, "orientationChanged", that.callback);
+	document.addEventListener("orientationChanged", that.callback);
 	
 	// This subscribes setOrientation to be constantly updating the currentOrientation property
-	Mojo.Event.listen(document, "orientationchange", function(event) {
+	//Mojo.Event.listen(document, "orientationchange", function(event) {
+	document.addEventListener("orientationchange", function(event) {
 		var orient = null;
 		switch (event.position) {
 			case 0: orient = DisplayOrientation.FACE_UP; break;

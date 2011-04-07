@@ -78,7 +78,8 @@ Geolocation.prototype.getCurrentPosition = function(successCallback, errorCallba
 	
 	// It may be that getCurrentPosition is less reliable than startTracking ... but
 	// not sure if we want to be starting and stopping the tracker if we're not watching.
-	new Mojo.Service.Request('palm://com.palm.location', {
+	//new Mojo.Service.Request('palm://com.palm.location', {
+	navigator.service.Request('palm://com.palm.location', {
 	    method:"getCurrentPosition",
 	    parameters:{
 			responseTime: responseTime
@@ -176,7 +177,8 @@ Geolocation.prototype.start = function(options, errorCallback) {
 		responseTime = 3;
 	
 	//location tracking does not support setting a custom interval :P
-	this.trackingHandle = new Mojo.Service.Request('palm://com.palm.location', {
+	//this.trackingHandle = new Mojo.Service.Request('palm://com.palm.location', {
+		this.trackingHandle = navigator.service.Request('palm://com.palm.location', {
 		method : 'startTracking',
         parameters: {
 			subscribe: true
